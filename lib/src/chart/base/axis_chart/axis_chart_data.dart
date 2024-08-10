@@ -676,12 +676,13 @@ class FlLine with EquatableMixin {
   /// it is a circular array of dash offsets and lengths.
   /// For example, the array `[5, 10]` would result in dashes 5 pixels long
   /// followed by blank spaces 10 pixels long.
-  const FlLine({
-    Color? color,
-    this.gradient,
-    this.strokeWidth = 2,
-    this.dashArray,
-  }) : color = color ??
+  const FlLine(
+      {Color? color,
+      this.gradient,
+      this.strokeWidth = 2,
+      this.dashArray,
+      this.isRounded = false})
+      : color = color ??
             ((color == null && gradient == null) ? Colors.black : null);
 
   /// Defines color of the line.
@@ -699,6 +700,8 @@ class FlLine with EquatableMixin {
   /// For example, the array `[5, 10]` would result in dashes 5 pixels long
   /// followed by blank spaces 10 pixels long.
   final List<int>? dashArray;
+
+  final bool isRounded;
 
   /// Lerps a [FlLine] based on [t] value, check [Tween.lerp].
   static FlLine lerp(FlLine a, FlLine b, double t) {

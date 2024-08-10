@@ -394,7 +394,7 @@ class LineChartPainter extends AxisChartPainter<LineChartData> {
         data.maxY,
         max(data.minY, data.lineTouchData.getTouchLineEnd(barData, index)),
       );
-      final lineStart =
+      var lineStart =
           Offset(touchedSpot.dx, getPixelY(lineStartY, viewSize, holder));
       var lineEnd =
           Offset(touchedSpot.dx, getPixelY(lineEndY, viewSize, holder));
@@ -410,6 +410,10 @@ class LineChartPainter extends AxisChartPainter<LineChartData> {
         }
       }
 
+      if (indicatorData.indicatorBelowLine.isRounded) {
+        lineStart -= Offset(0, 16);
+      }
+
       final indicatorLine = indicatorData.indicatorBelowLine;
       _touchLinePaint
         ..setColorOrGradientForLine(
@@ -420,6 +424,10 @@ class LineChartPainter extends AxisChartPainter<LineChartData> {
         )
         ..strokeWidth = indicatorLine.strokeWidth
         ..transparentIfWidthIsZero();
+
+      if (indicatorData.indicatorBelowLine.isRounded) {
+        _touchLinePaint.strokeCap = StrokeCap.round;
+      }
 
       canvasWrapper.drawDashedLine(
         lineStart,
